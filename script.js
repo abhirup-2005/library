@@ -110,7 +110,7 @@ const displayBooks = () => {
     } else {
       isRead.textContent = "Not Yet Read";
     }
-    
+
 
 
     newCard.appendChild(newInfo);
@@ -137,10 +137,18 @@ display.addEventListener("click", (event) => {
   const index = myLibrary.findIndex((item) => item.id === bookId);
   if (index === -1) return;
 
-  if (event.target.classList.contains("removeBook"))
+  if (event.target.classList.contains("removeBook")) {
+    const bookTitle = myLibrary[index].title;
+
+    const confirmDelete = confirm(
+      `Delete "${bookTitle}"?\nThis action cannot be undone.`
+    );
+
+    if (!confirmDelete) return;
     myLibrary.splice(index, 1);
-  else
+  } else if (event.target.classList.contains("isRead")) {
     myLibrary[index].read = !myLibrary[index].read;
+  }
 
   update();
 });
