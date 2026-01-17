@@ -1,18 +1,38 @@
+:root {
+    --bg-page: #0f172a;
+    --bg-card: #020617;
+
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+
+    --neutral: #1f2933;
+
+    --danger: #ef4444;
+    --danger-hover: #b91c1c;
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-header {
-    font-size: 1.5rem;
-    font-weight: bold;
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+}
 
+header {
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .header {
-    background: rgba(255, 218, 185, 0.532);
-    backdrop-filter: blur(6px);
+    background: var(--bg-card);
     position: fixed;
     z-index: 1000;
     top: -1px;
@@ -37,22 +57,22 @@ footer {
     left: 0;
     width: 100%;
     padding: 5px;
-    background: rgba(255, 218, 185, 0.532);
-    backdrop-filter: blur(6px);
+    background: var(--bg-card);
+    color: var(--text-muted);
     text-align: center;
 }
 
 /* MODAL */
 .new-book {
     padding: 10px;
-    background-color: rgb(83, 176, 252);
+    background-color: var(--primary);
     color: white;
     border-color: white;
     border-radius: 20px;
 }
 
 .new-book:hover {
-    background-color: rgb(112, 191, 255);
+    background-color: var(--primary-hover);
 }
 
 .modal {
@@ -64,18 +84,18 @@ footer {
 }
 
 .modal::backdrop {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(96, 96, 96, 0.4);
     backdrop-filter: blur(6px);
 }
 
 .modal-form {
-    background-color: peachpuff;
+    background-color: var(--bg-card);
+    color: var(--text-main);
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 20px;
     border-radius: 20px 60px 20px 20px;
-    border: 2px black solid;
 }
 
 .modal-form>h1 {
@@ -91,14 +111,17 @@ label {
 }
 
 input {
-    border: 1px solid black;
+    background-color: var(--neutral);
+    color: var(--text-main);
     border-radius: 10px;
     padding: 5px 10px;
     font-size: 1.1rem;
-    transition: transform 0.2s ease-in-out;
+    border: 1px solid transparent;
 }
-input:hover {
-    transform: scale(1.075);
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
 #read-instruction {
@@ -109,6 +132,7 @@ input:hover {
     width: 20px;
     height: 20px;
     align-self: center;
+    cursor: pointer;
 }
 
 .form-buttons {
@@ -124,27 +148,32 @@ input:hover {
 .cancel,
 .removeBook {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    background-color: red;
+    top: 0;
+    right: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-color: var(--danger);
     color: white;
     border-color: white;
 }
 
-.cancel:hover, .removeBook:hover {
-    background-color: orangered;
+.cancel:hover,
+.removeBook:hover {
+    background-color: var(--danger-hover);
 }
 
 .submit {
-    background-color: rgb(53, 255, 53);
+    background-color: var(--primary);
+    color: white;
     border-radius: 20px;
+    border-color: white;
 }
 
 .submit:hover {
-    background-color: lightgreen;
+    background-color: var(--primary-hover);
 }
 
 /* CONTAINER */
@@ -157,9 +186,8 @@ input:hover {
 }
 
 .bookCard {
-    background-color: bisque;
-    border-radius: 20px 45px 20px 20px;
-    border: 2px solid peachpuff;
+    background-color: var(--bg-card);
+    border-radius: 20px 60px 20px 20px;
     padding: 20px;
     position: relative;
     display: flex;
@@ -169,7 +197,7 @@ input:hover {
 }
 
 .bookCard:hover {
-    transform: scale(1.04);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
 }
 
 .bookInfo {
@@ -180,32 +208,40 @@ input:hover {
 
 .bookTitle {
     text-align: center;
-    padding: 10px;
-    background-color: white;
-    border-radius: 20px 45px 20px 20px;
-}
-
-.bookTitle:hover {
-    overflow: visible;
-    white-space: wrap;
+    padding: 12px;
+    background-color:  rgba(31, 41, 51, 0.85);
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .bookAuthor,
 .bookPages {
     text-align: end;
     padding-right: 10px;
+    color: var(--text-muted);
 }
 
 .isRead {
-    margin-top: 10px;
+    background-color: var(--neutral);
+    color: var(--text-main);
+    margin-top: 14px;
     padding: 10px;
-    font-size: 1.2rem;
-    border-radius: 20px;
+    font-size: 1rem;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
 }
 
-button {
+.isRead.read { opacity: 0.7 }
+
+.new-book,
+.submit {
     transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
-button:hover {
-    transform: scale(1.075);
+
+.new-book:hover,
+.submit:hover {
+    transform: scale(1.05);
 }

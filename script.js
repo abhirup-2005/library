@@ -17,6 +17,26 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.unshift(book);
 }
 
+// SAVE MY LIBRARY TO LOCAL STORAGE
+function saveToLocalStorage() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+}
+
+// LOAD FROM LOCAL STORAGE
+function loadFromLocalStorage() {
+  const storedData = localStorage.getItem("library");
+
+  if (!storedData) return;
+
+  const parsedData = JSON.parse(storedData);
+
+  myLibrary.length = 0; // clear array without changing reference
+
+  parsedData.forEach(book => myLibrary.push(book));
+}
+
+
+
 // NEW BOOK BUTTON AND CANCEL BUTTON
 const newBookBtn = document.querySelector(".new-book");
 const modal = document.querySelector(".modal");
@@ -41,8 +61,7 @@ modalForm.addEventListener("submit", (event) => {
   event.preventDefault();
   addBookToLibrary(title.value, author.value, pages.value, read.checked);
 
-  display.textContent = "";
-  displayBooks();
+  update();
 
   modal.close();
   modalForm.reset();
@@ -50,6 +69,7 @@ modalForm.addEventListener("submit", (event) => {
 
 // DISPLAY
 const displayBooks = () => {
+  display.textContent = "";
   myLibrary.forEach((item) => {
     // BOOK CARD
     const newCard = document.createElement("div");
@@ -85,19 +105,12 @@ const displayBooks = () => {
     const isRead = document.createElement("button");
     isRead.classList.add("isRead");
     if (item.read === true) {
-      isRead.textContent = "Read";
-      isRead.style.backgroundColor = "rgb(53, 255, 53)";
+      isRead.textContent = "Already Read";
+      isRead.classList.add("read");
     } else {
-      isRead.textContent = "Not Yeat Read";
-      isRead.style.backgroundColor = "orangered";
-      isRead.style.color = "white"
+      isRead.textContent = "Not Yet Read";
     }
-    isRead.addEventListener("mouseenter", () => {
-      item.read === true ? isRead.style.backgroundColor = "lightgreen" : isRead.style.backgroundColor = "orange";
-    });
-    isRead.addEventListener("mouseleave", () => {
-      item.read === true ? isRead.style.backgroundColor = "rgb(53, 255, 53)" : isRead.style.backgroundColor = "orangered";
-    })
+    
 
 
     newCard.appendChild(newInfo);
@@ -107,6 +120,12 @@ const displayBooks = () => {
     display.appendChild(newCard);
   });
 }
+
+function update() {
+  saveToLocalStorage();
+  displayBooks();
+}
+
 
 // REMOVE CARD AND READ TOGGLE
 display.addEventListener("click", (event) => {
@@ -123,13 +142,17 @@ display.addEventListener("click", (event) => {
   else
     myLibrary[index].read = !myLibrary[index].read;
 
-  display.textContent = "";
-  displayBooks();
+  update();
 });
 
-//EXAMPLE BOOKS
-addBookToLibrary("Economics for Engineers", "Partha Chatterjee", 470, false);
-addBookToLibrary("Economics for Engineers", "HL Bhatia & SN Maheshwari", 340, true);
-addBookToLibrary("Data Structures and Algorithms in C and Python ", "Chandan Banerjee & Atanu Das", 634, false);
+loadFromLocalStorage();
 
-displayBooks();
+//DEMO BOOKS
+if (myLibrary.length === 0) {
+  addBookToLibrary("Demo Book 1", "Author A", 470, false);
+  addBookToLibrary("Demo Book 2", "Author B", 340, true);
+  addBookToLibrary("Demo Books appear whene there is no book added at all", "Author C", 634, false);
+}
+
+
+update();
