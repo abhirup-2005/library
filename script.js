@@ -126,15 +126,9 @@ display.addEventListener("click", (event) => {
   displayBooks();
 });
 
-//EXAMPLE
+//EXAMPLE BOOKS
 addBookToLibrary("Economics for Engineers", "Partha Chatterjee", 470, false);
 addBookToLibrary("Economics for Engineers", "HL Bhatia & SN Maheshwari", 340, true);
 addBookToLibrary("Data Structures and Algorithms in C and Python ", "Chandan Banerjee & Atanu Das", 634, false);
-addBookToLibrary("Economics for Engineers", "Partha Chatterjee", 470, false);
-addBookToLibrary("Economics for Engineers", "HL Bhatia & SN Maheshwari", 340, true);
-addBookToLibrary("Economics for Engineers", "Partha Chatterjee", 470, false);
-addBookToLibrary("Economics for Engineers", "HL Bhatia & SN Maheshwari", 340, true);
-addBookToLibrary("Economics for Engineers", "Partha Chatterjee", 470, false);
-addBookToLibrary("Economics for Engineers", "HL Bhatia & SN Maheshwari", 340, true);
 
 displayBooks();
