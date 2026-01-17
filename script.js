@@ -84,13 +84,20 @@ const displayBooks = () => {
     //READ TOGGLE
     const isRead = document.createElement("button");
     isRead.classList.add("isRead");
-    if(item.read === true) {
+    if (item.read === true) {
       isRead.textContent = "Read";
-      isRead.style.backgroundColor = "lightgreen";
+      isRead.style.backgroundColor = "rgb(53, 255, 53)";
     } else {
       isRead.textContent = "Not Yeat Read";
-      isRead.style.backgroundColor = "orange";
+      isRead.style.backgroundColor = "orangered";
     }
+    isRead.addEventListener("mouseenter", () => {
+      item.read === true ? isRead.style.backgroundColor = "lightgreen" : isRead.style.backgroundColor = "orange";
+    });
+    isRead.addEventListener("mouseleave", () => {
+      item.read === true ? isRead.style.backgroundColor = "rgb(53, 255, 53)" : isRead.style.backgroundColor = "orangered";
+    })
+
 
     newCard.appendChild(newInfo);
     newCard.appendChild(removeBtn);
@@ -110,9 +117,9 @@ display.addEventListener("click", (event) => {
   const index = myLibrary.findIndex((item) => item.id === bookId);
   if (index === -1) return;
 
-  if(event.target.classList.contains("removeBook")) 
+  if (event.target.classList.contains("removeBook"))
     myLibrary.splice(index, 1);
-  else 
+  else
     myLibrary[index].read = !myLibrary[index].read;
 
   display.textContent = "";

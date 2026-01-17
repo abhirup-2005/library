@@ -51,6 +51,10 @@ footer {
     border-radius: 20px;
 }
 
+.new-book:hover {
+    background-color: rgb(112, 191, 255);
+}
+
 .modal {
     background-color: transparent;
     width: 340px;
@@ -70,7 +74,7 @@ footer {
     flex-direction: column;
     gap: 10px;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 20px 60px 20px 20px;
     border: 2px black solid;
 }
 
@@ -91,10 +95,20 @@ input {
     border-radius: 10px;
     padding: 5px 10px;
     font-size: 1.1rem;
+    transition: transform 0.2s ease-in-out;
+}
+input:hover {
+    transform: scale(1.075);
 }
 
 #read-instruction {
     font-size: 0.8rem;
+}
+
+#read {
+    width: 20px;
+    height: 20px;
+    align-self: center;
 }
 
 .form-buttons {
@@ -110,8 +124,8 @@ input {
 .cancel,
 .removeBook {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     width: 30px;
     height: 30px;
     border-radius: 15px;
@@ -120,9 +134,17 @@ input {
     border-color: white;
 }
 
+.cancel:hover, .removeBook:hover {
+    background-color: orangered;
+}
+
 .submit {
-    background-color: lightgreen;
+    background-color: rgb(53, 255, 53);
     border-radius: 20px;
+}
+
+.submit:hover {
+    background-color: lightgreen;
 }
 
 /* CONTAINER */
@@ -135,13 +157,19 @@ input {
 }
 
 .bookCard {
-    background-color: antiquewhite;
-    border-radius: 20px 50px 20px 20px;
+    background-color: bisque;
+    border-radius: 20px 45px 20px 20px;
+    border: 2px solid peachpuff;
     padding: 20px;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.2s ease-in-out;
+}
+
+.bookCard:hover {
+    transform: scale(1.04);
 }
 
 .bookInfo {
@@ -153,8 +181,8 @@ input {
 .bookTitle {
     text-align: center;
     padding: 10px;
-    background-color: lightgrey;
-    border-radius: 20px 50px 20px 20px;
+    background-color: white;
+    border-radius: 20px 45px 20px 20px;
 }
 
 .bookTitle:hover {
@@ -173,4 +201,11 @@ input {
     padding: 10px;
     font-size: 1.2rem;
     border-radius: 20px;
+}
+
+button {
+    transition: transform 0.2s ease-in-out;
+}
+button:hover {
+    transform: scale(1.075);
 }
