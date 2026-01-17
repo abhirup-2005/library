@@ -47,6 +47,8 @@ newBookBtn.addEventListener("click", () => {
   modal.showModal();
 });
 cancelBtn.addEventListener("click", () => {
+  editingBookId = null;
+  modalForm.reset();
   modal.close();
 });
 
@@ -56,13 +58,26 @@ const title = document.querySelector("#title");
 const author = document.querySelector("#author");
 const pages = document.querySelector("#pages");
 const read = document.querySelector("#read");
+let editingBookId = null;
 
 modalForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  addBookToLibrary(title.value, author.value, pages.value, read.checked);
+
+  if (editingBookId === null) {
+    addBookToLibrary(title.value, author.value, pages.value, read.checked);
+  } else {
+    const book = myLibrary.find(b => b.id === editingBookId);
+    if (!book) return;
+
+    book.title = title.value;
+    book.author = author.value;
+    book.pages = pages.value;
+    book.read = read.checked;
+
+    editingBookId = null;
+  }
 
   update();
-
   modal.close();
   modalForm.reset();
 });
@@ -101,6 +116,11 @@ const displayBooks = () => {
     removeBtn.classList.add("removeBook");
     removeBtn.textContent = "x";
 
+    //EDIT BUTTON
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("editBook");
+    editBtn.textContent = "Edit";
+
     //READ TOGGLE
     const isRead = document.createElement("button");
     isRead.classList.add("isRead");
@@ -111,10 +131,9 @@ const displayBooks = () => {
       isRead.textContent = "Not Yet Read";
     }
 
-
-
     newCard.appendChild(newInfo);
     newCard.appendChild(removeBtn);
+    newCard.appendChild(editBtn);
     newCard.appendChild(isRead);
 
     display.appendChild(newCard);
@@ -129,7 +148,7 @@ function update() {
 
 // REMOVE CARD AND READ TOGGLE
 display.addEventListener("click", (event) => {
-  if (!event.target.matches(".removeBook, .isRead")) return;
+  if (!event.target.matches(".removeBook, .isRead, .editBook")) return;
 
   const card = event.target.closest(".bookCard");
   const bookId = card.dataset.id;
@@ -146,8 +165,23 @@ display.addEventListener("click", (event) => {
 
     if (!confirmDelete) return;
     myLibrary.splice(index, 1);
-  } else if (event.target.classList.contains("isRead")) {
+  }
+  else if (event.target.classList.contains("isRead")) {
     myLibrary[index].read = !myLibrary[index].read;
+  }
+  //event.target.classList.contains("isRead") 
+  else {
+    const book = myLibrary[index];
+
+    editingBookId = book.id;
+
+    title.value = book.title;
+    author.value = book.author;
+    pages.value = book.pages;
+    read.checked = book.read;
+
+    modal.showModal();
+    return;
   }
 
   update();
