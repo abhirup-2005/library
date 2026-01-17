@@ -90,6 +90,7 @@ const displayBooks = () => {
     } else {
       isRead.textContent = "Not Yeat Read";
       isRead.style.backgroundColor = "orangered";
+      isRead.style.color = "white"
     }
     isRead.addEventListener("mouseenter", () => {
       item.read === true ? isRead.style.backgroundColor = "lightgreen" : isRead.style.backgroundColor = "orange";
