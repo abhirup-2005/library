@@ -16,6 +16,8 @@ This project focuses on DOM manipulation, state management, and clean UI structu
 - Persistent data storage using localStorage
 - Responsive grid-based layout
 - Clean dark UI with clear visual hierarchy
+- Edit existing books using the same modal form
+- Cancel editing without modifying existing data
 
 ---
 
@@ -35,6 +37,7 @@ This project focuses on DOM manipulation, state management, and clean UI structu
 - Separating data logic, UI rendering, and event handling
 - Using event delegation for dynamically created elements
 - Designing UI using role-based color systems instead of random colors
+- Handling edit state safely using unique identifiers instead of array indexes
 
 ---
 
@@ -51,7 +54,6 @@ This ensures consistent state and persistence across page reloads.
 
 ## Future Improvements
 
-- Edit existing book details
 - Search and filter books
 - Authentication and cloud sync
 - Theme toggle (light / dark)

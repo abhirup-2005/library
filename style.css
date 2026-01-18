@@ -1,5 +1,5 @@
 :root {
-    --bg-page: #0f172a;
+    --bg-page: #1d242e;
     --bg-card: #020617;
 
     --text-main: #e5e7eb;
@@ -8,7 +8,8 @@
     --primary: #3b82f6;
     --primary-hover: #2563eb;
 
-    --neutral: #1f2933;
+    --neutral: #202833;
+    --buttn-hover: #0f172a;
 
     --danger: #ef4444;
     --danger-hover: #b91c1c;
@@ -43,7 +44,7 @@ header {
     align-items: center;
     width: 100%;
     padding: 10px;
-
+    box-shadow: 0 5px 8px var(--buttn-hover);
 }
 
 .container {
@@ -57,10 +58,34 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     background: var(--bg-card);
     color: var(--text-muted);
-    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+footer i {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 1s ease, color 1s ease;
+}
+
+footer i:hover {
+    color: var(--text-main);
+    transform: rotate(360deg);
 }
 
 /* MODAL */
@@ -195,10 +220,12 @@ input:focus {
     grid-template: 1fr 70px/ 1fr 1fr;
     transition: transform 0.2s ease-in-out;
     column-gap: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
+    transition: 0.2s ease-in-out;
 }
 
 .bookCard:hover {
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
+    transform: scale(1.03);
 }
 
 .bookInfo {
@@ -212,6 +239,7 @@ input:focus {
 .bookTitle {
     text-align: center;
     padding: 12px;
+    background-color: #37475742;
     border: 2px solid rgba(255, 255, 255, 0.25);
     border-radius: 12px;
     font-size: 1.25rem;
@@ -225,7 +253,8 @@ input:focus {
     color: var(--text-muted);
 }
 
-.isRead, .editBook {
+.isRead,
+.editBook {
     background-color: var(--neutral);
     color: var(--text-main);
     margin-top: 14px;
@@ -236,10 +265,13 @@ input:focus {
     transition: opacity 0.2s ease-in-out;
 }
 
-.isRead.read { opacity: 0.7 }
+.isRead.read {
+    opacity: 0.6
+}
 
-.isRead:hover, .editBook:hover {
-    box-shadow: 0 0 20px var(--neutral);
+.isRead:hover,
+.editBook:hover {
+    background-color: var(--buttn-hover);
 }
 
 .new-book,

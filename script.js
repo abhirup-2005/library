@@ -35,7 +35,8 @@ function loadFromLocalStorage() {
   parsedData.forEach(book => myLibrary.push(book));
 }
 
-
+const modalHeading = document.querySelector(".modal-heading");
+const submit = document.querySelector(".submit");
 
 // NEW BOOK BUTTON AND CANCEL BUTTON
 const newBookBtn = document.querySelector(".new-book");
@@ -44,11 +45,15 @@ const cancelBtn = document.querySelector(".cancel");
 const modalForm = document.querySelector(".modal-form")
 
 newBookBtn.addEventListener("click", () => {
+  modalHeading.textContent = "Add a Book";
+  submit.textContent = "Add";
   modal.showModal();
 });
 cancelBtn.addEventListener("click", () => {
   editingBookId = null;
   modalForm.reset();
+  modalHeading.textContent = "Add a Book";
+  submit.textContent = "Add";
   modal.close();
 });
 
@@ -156,8 +161,10 @@ display.addEventListener("click", (event) => {
   const index = myLibrary.findIndex((item) => item.id === bookId);
   if (index === -1) return;
 
+  const book = myLibrary[index];
+
   if (event.target.classList.contains("removeBook")) {
-    const bookTitle = myLibrary[index].title;
+    const bookTitle = book.title;
 
     const confirmDelete = confirm(
       `Delete "${bookTitle}"?\nThis action cannot be undone.`
@@ -167,18 +174,19 @@ display.addEventListener("click", (event) => {
     myLibrary.splice(index, 1);
   }
   else if (event.target.classList.contains("isRead")) {
-    myLibrary[index].read = !myLibrary[index].read;
+    book.read = !book.read;
   }
   //event.target.classList.contains("isRead") 
   else {
-    const book = myLibrary[index];
-
     editingBookId = book.id;
 
     title.value = book.title;
     author.value = book.author;
     pages.value = book.pages;
     read.checked = book.read;
+
+    modalHeading.textContent = "Edit Book";
+    submit.textContent = "Edit";
 
     modal.showModal();
     return;
