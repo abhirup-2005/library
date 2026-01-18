@@ -196,13 +196,4 @@ display.addEventListener("click", (event) => {
 });
 
 loadFromLocalStorage();
-
-//DEMO BOOKS
-if (myLibrary.length === 0) {
-  addBookToLibrary("Demo Book 1", "Author A", 470, false);
-  addBookToLibrary("Demo Book 2", "Author B", 340, true);
-  addBookToLibrary("Demo Books appear whene there is no book added at all", "Author C", 634, false);
-}
-
-
 update();
