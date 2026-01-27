@@ -1,13 +1,15 @@
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = crypto.randomUUID();
-}
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = crypto.randomUUID();
+  }
+  info() {
+    return (`${this.title} by ${this.author}, pages:${this.pages}`);
+  }
 
-Book.prototype.info = function () {
-  return (`${this.title} by ${this.author}, pages:${this.pages}`);
 }
 
 // ADD BOOKS TO LIST
@@ -32,7 +34,18 @@ function loadFromLocalStorage() {
 
   myLibrary.length = 0; // clear array without changing reference
 
-  parsedData.forEach(book => myLibrary.push(book));
+  parsedData.forEach(bookData => {
+    const book = new Book(
+      bookData.title,
+      bookData.author,
+      bookData.pages,
+      bookData.read
+    );
+
+    book.id = bookData.id; // preserve id
+    myLibrary.push(book);
+  });
+
 }
 
 const modalHeading = document.querySelector(".modal-heading");
