@@ -208,5 +208,80 @@ display.addEventListener("click", (event) => {
   update();
 });
 
+// Form Validation
+const titleError = document.querySelector(".title-error");
+const authorError = document.querySelector(".author-error");
+const pagesError = document.querySelector(".pages-error");
+
+title.addEventListener("input", () => {
+  if (title.validity.valueMissing) {
+    titleError.textContent = "The title must be filled!";
+    titleError.classList.add("active");
+  }
+  else {
+    titleError.textContent = "";
+    titleError.classList.remove("active");
+  }
+});
+
+author.addEventListener("input", () => {
+  if (author.validity.valueMissing) {
+    authorError.textContent = "The author name must be filled!";
+    authorError.classList.add("active");
+  }
+  else {
+    authorError.textContent = "";
+    authorError.classList.remove("active");
+  }
+});
+
+pages.addEventListener("input", () => {
+  if (pages.validity.valueMissing) {
+    pagesError.textContent = "The page count must be filled!";
+    pagesError.classList.add("active");
+  }
+  else if (pages.validity.rangeUnderflow) {
+    pagesError.textContent = "The page count must be >= 1!";
+    pagesError.classList.add("active");
+  }
+  else {
+    pagesError.textContent = "";
+    pagesError.classList.remove("active");
+  }
+});
+
+submit.addEventListener("click", (e) => {
+  if (!title.validity.valid) {
+    titleError.textContent = "The title must be filled!";
+    titleError.classList.add("active");
+    e.preventDefault();
+  }
+
+  if (!author.validity.valid) {
+    authorError.textContent = "The author name must be filled!";
+    authorError.classList.add("active");
+    e.preventDefault();
+  }
+
+  if (pages.validity.valueMissing) {
+    pagesError.textContent = "The page count must be filled!";
+    pagesError.classList.add("active");
+    e.preventDefault();
+  } else if (pages.validity.rangeUnderflow) {
+    pagesError.textContent = "The page count must be >= 1!";
+    pagesError.classList.add("active");
+    e.preventDefault();
+  }
+})
+
+cancelBtn.addEventListener("click", () => {
+  titleError.textContent = "";
+  titleError.classList.remove("active");
+  authorError.textContent = "";
+  authorError.classList.remove("active");
+  pagesError.textContent = "";
+  pagesError.classList.remove("active");
+});
+
 loadFromLocalStorage();
 update();
