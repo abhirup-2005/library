@@ -78,9 +78,39 @@ const pages = document.querySelector("#pages");
 const read = document.querySelector("#read");
 let editingBookId = null;
 
-modalForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+modalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
+  // Form Validation
+  let isValid = true;
+  if (!title.validity.valid) {
+    titleError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The title must be filled!`;
+    titleError.classList.add("active");
+    isValid = false;
+  }
+
+  if (!author.validity.valid) {
+    authorError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The author name must be filled!`;
+    authorError.classList.add("active");
+    isValid = false;
+  }
+
+  if (pages.validity.valueMissing) {
+    pagesError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The page count must be filled!`;
+    pagesError.classList.add("active");
+    isValid = false;
+  } else if (pages.validity.rangeUnderflow) {
+    pagesError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The page count must be >= 1!`;
+    pagesError.classList.add("active");
+    isValid = false;
+  }
+
+  // STOP everything if invalid
+  if (!isValid) {
+    return;
+  }
+
+  // ONLY runs if valid
   if (editingBookId === null) {
     addBookToLibrary(title.value, author.value, pages.value, read.checked);
   } else {
@@ -215,7 +245,7 @@ const pagesError = document.querySelector(".pages-error");
 
 title.addEventListener("input", () => {
   if (title.validity.valueMissing) {
-    titleError.textContent = "The title must be filled!";
+    titleError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The title must be filled!`;
     titleError.classList.add("active");
   }
   else {
@@ -226,7 +256,7 @@ title.addEventListener("input", () => {
 
 author.addEventListener("input", () => {
   if (author.validity.valueMissing) {
-    authorError.textContent = "The author name must be filled!";
+    authorError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The author name must be filled!`;
     authorError.classList.add("active");
   }
   else {
@@ -237,11 +267,11 @@ author.addEventListener("input", () => {
 
 pages.addEventListener("input", () => {
   if (pages.validity.valueMissing) {
-    pagesError.textContent = "The page count must be filled!";
+    pagesError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The page count must be filled!`;
     pagesError.classList.add("active");
   }
   else if (pages.validity.rangeUnderflow) {
-    pagesError.textContent = "The page count must be >= 1!";
+    pagesError.innerHTML = `<i class="fa-solid fa-circle-info"></i> The page count must be >= 1!`;
     pagesError.classList.add("active");
   }
   else {
@@ -249,30 +279,6 @@ pages.addEventListener("input", () => {
     pagesError.classList.remove("active");
   }
 });
-
-submit.addEventListener("click", (e) => {
-  if (!title.validity.valid) {
-    titleError.textContent = "The title must be filled!";
-    titleError.classList.add("active");
-    e.preventDefault();
-  }
-
-  if (!author.validity.valid) {
-    authorError.textContent = "The author name must be filled!";
-    authorError.classList.add("active");
-    e.preventDefault();
-  }
-
-  if (pages.validity.valueMissing) {
-    pagesError.textContent = "The page count must be filled!";
-    pagesError.classList.add("active");
-    e.preventDefault();
-  } else if (pages.validity.rangeUnderflow) {
-    pagesError.textContent = "The page count must be >= 1!";
-    pagesError.classList.add("active");
-    e.preventDefault();
-  }
-})
 
 cancelBtn.addEventListener("click", () => {
   titleError.textContent = "";
